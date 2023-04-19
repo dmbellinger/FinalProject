@@ -9,7 +9,11 @@
         android:id="@+id/mainMenuFragment"
         android:name="com.hfad.finalproject.MainMenuFragment"
         android:label="fragment_main_menu"
-        tools:layout="@layout/fragment_main_menu" />
+        tools:layout="@layout/fragment_main_menu" >
+        <action
+            android:id="@+id/action_mainMenuFragment_to_viewListFragment"
+            app:destination="@id/viewListFragment" />
+    </fragment>
     <fragment
         android:id="@+id/viewListFragment"
         android:name="com.hfad.finalproject.ViewListFragment"
