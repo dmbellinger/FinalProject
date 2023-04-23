@@ -18,10 +18,30 @@
         android:id="@+id/viewListFragment"
         android:name="com.hfad.finalproject.ViewListFragment"
         android:label="fragment_view_list"
-        tools:layout="@layout/fragment_view_list" />
+        tools:layout="@layout/fragment_view_list" >
+        <action
+            android:id="@+id/action_viewListFragment_to_deleteFragment"
+            app:destination="@id/deleteFragment" />
+        <action
+            android:id="@+id/action_viewListFragment_to_addFragment"
+            app:destination="@id/addFragment" />
+        <action
+            android:id="@+id/action_viewListFragment_to_savedFragment"
+            app:destination="@id/savedFragment" />
+    </fragment>
     <fragment
         android:id="@+id/deleteFragment"
         android:name="com.hfad.finalproject.DeleteFragment"
         android:label="fragment_delete"
         tools:layout="@layout/fragment_delete" />
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="com.hfad.finalproject.AddFragment"
+        android:label="fragment_add"
+        tools:layout="@layout/fragment_add" />
+    <fragment
+        android:id="@+id/savedFragment"
+        android:name="com.hfad.finalproject.SavedFragment"
+        android:label="fragment_saved"
+        tools:layout="@layout/fragment_saved" />
 </navigation>
