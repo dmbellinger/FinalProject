@@ -39,7 +39,7 @@ class ViewListFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = itemAdapter
 
-        val deleteButton: Button = view.findViewById(R.id.deleteButton)
+        val deleteButton: Button = view.findViewById(R.id.DeleteButton)
         deleteButton.setOnClickListener {
             view.findNavController()
                 .navigate(R.id.action_viewListFragment_to_deleteFragment)

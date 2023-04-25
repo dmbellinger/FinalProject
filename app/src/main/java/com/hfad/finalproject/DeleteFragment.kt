@@ -31,7 +31,7 @@ class DeleteFragment : Fragment() {
         val deleteButton: Button = view.findViewById(R.id.deleteButton)
         deleteButton.setOnClickListener {
 
-            itemAdapter.notifyDataSetChanged()
+            //itemAdapter.notifyDataSetChanged()
 
             fragmentManager?.popBackStack()
         }
