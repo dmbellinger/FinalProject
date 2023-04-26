@@ -9,6 +9,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.util.Log
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import com.hfad.finalproject.databinding.FragmentAddBinding
 
 /**
  * A simple [Fragment] subclass.
@@ -16,9 +20,19 @@ import android.widget.TextView
  * create an instance of this fragment.
  */
 class AddFragment : Fragment(), View.OnClickListener {
-    val items = arrayListOf<Item>()
+//    val items = arrayListOf<Item>()
+    private val viewModel: ItemsViewModel by activityViewModels {
+        ItemsViewModelFactory(
+            (activity?.application as ListApplication).database.DAO()
+        )
+    }
+    lateinit var item:Item
+    private var _binding: FragmentAddBinding? = null
+    private val binding get() = _binding!!
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
+//        val viewModel: ItemsViewModel by viewModels()
         super.onCreate(savedInstanceState)
     }
 
@@ -27,27 +41,39 @@ class AddFragment : Fragment(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add, container, false)
+        _binding = FragmentAddBinding.inflate(inflater,container,false)
+        //return inflater.inflate(R.layout.fragment_add, container, false)
+        return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<Button>(R.id.AddButton).setOnClickListener(this)
     }
     fun addItem() {
-        val itemName = view?.findViewById<EditText>(R.id.ItemNameInput).toString()
-        val itemPrice = view?.findViewById<EditText>(R.id.ItemPriceInput).toString().toDouble()
-        val item = Item(itemName,itemPrice)
+        //val itemName = view?.findViewById<EditText>(R.id.ItemNameInput)?.text.toString()
+        val itemName = binding.ItemNameInput.text.toString()
+        val itemPrice = binding.ItemPriceInput.text.toString().toDouble()
+        //val itemPrice = view?.findViewById<EditText>(R.id.ItemPriceInput)?.text.toString().toDouble()
+//        Log.d("Tag","$itemPrice")
+        //val item = Item(viewModel.currentList,itemName,itemPrice)
 //        items.add(item)
-        ItemsViewModel.ItemArray.addItem(item)
+       // ItemsViewModel.ItemArray.addItem(item)
+        if (isEntryValid(itemName)) {
+            viewModel.addItem(itemName, itemPrice)
+        }
     }
 
     override fun onClick(view: View?) {
         addItem()
 
     }
-    @JvmName("getItems1")
-    fun getItems(): ArrayList<Item> {
-        return items
+//    @JvmName("getItems1")
+//    fun getItems(): ArrayList<Item> {
+//        return items
+//    }
+
+    fun isEntryValid(itemName: String): Boolean{
+        return viewModel.isEntryValid(binding.ItemNameInput.text.toString())
     }
 
 }
