@@ -26,10 +26,12 @@ class ItemsViewModel(private val DAO: DAO) : ViewModel() {
         }
         return true
     }
-    fun getItems() {
+    fun getItems(): List<Item> {
+        lateinit var list:List<Item>
         viewModelScope.launch {
-            DAO.getListItems(_currentList)
+           list = DAO.getListItems(_currentList)
         }
+        return list
     }
 
     private fun getNewItemEntry(itemName: String, itemPrice: Double): Item{

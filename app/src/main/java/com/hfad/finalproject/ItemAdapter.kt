@@ -9,15 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.fragment.app.viewModels
 
 
-class ItemAdapter: RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
+class ItemAdapter(viewModel: ItemsViewModel): RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
 
-    private val viewModel: ItemsViewModel by activityViewModels {
-        ItemsViewModelFactory(
-            (activity?.application as ListApplication).database.DAO()
-        )
-    }
-
-    val items = 0
+    val items: List<Item> = viewModel.getItems()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         // inflates the card_view_design view
         // that is used to hold list item
