@@ -4,9 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
-import androidx.fragment.app.viewModels
+import kotlin.collections.List
 
 
 class ItemAdapter(viewModel: ItemsViewModel): RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
@@ -17,8 +16,7 @@ class ItemAdapter(viewModel: ItemsViewModel): RecyclerView.Adapter<ItemAdapter.V
         // that is used to hold list item
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.list_item, parent, false)
-        //val Item = Item("Item Name", 0.00)
-        //items.add(Item)
+
         return ViewHolder(view)
     }
 
@@ -33,12 +31,15 @@ class ItemAdapter(viewModel: ItemsViewModel): RecyclerView.Adapter<ItemAdapter.V
         // sets the text to the textview from our itemHolder class
         holder.nameDisplay.text = ItemsViewModel.name
         holder.priceDisplay.text = ItemsViewModel.price.toString()
-
+        holder.categoryDisplay.text = ItemsViewModel.category.toString()
+        holder.quantityDisplay.text = ItemsViewModel.quantity.toString()
     }
 
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
         val nameDisplay: TextView = itemView.findViewById(R.id.nameDisplay)
         val priceDisplay: TextView = itemView.findViewById(R.id.priceDisplay)
+        val categoryDisplay: TextView = itemView.findViewById(R.id.CategoryDisplay)
+        val quantityDisplay: TextView = itemView.findViewById(R.id.QuantityDisplay)
 
     }
 }

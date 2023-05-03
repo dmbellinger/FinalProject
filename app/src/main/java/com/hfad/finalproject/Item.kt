@@ -6,7 +6,9 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Item(
-    @PrimaryKey (autoGenerate = true)
-    val listId: Int,
-    val name: String,
-    val price: Double)
+    @PrimaryKey val itemId: Int,
+    @ColumnInfo val listId: Int,
+    @ColumnInfo val name: String,
+    @ColumnInfo val price: Double,
+    @ColumnInfo val quantity: Int,
+    @ColumnInfo val category: String)

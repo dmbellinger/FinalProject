@@ -28,7 +28,8 @@ class ViewListFragment : Fragment() {
     private lateinit var itemAdapter: ItemAdapter
     private val viewModel: ItemsViewModel by activityViewModels {
         ItemsViewModelFactory(
-            (activity?.application as ListApplication).database.DAO()
+            (activity?.application as ListApplication).database.DAO(),
+            (activity?.application as ListApplication).database.SavedDAO()
         )
     }
 
