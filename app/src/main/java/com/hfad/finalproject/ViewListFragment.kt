@@ -1,6 +1,7 @@
 package com.hfad.finalproject
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -39,7 +40,7 @@ class ViewListFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = itemAdapter
 
-        val deleteButton: Button = view.findViewById(R.id.DeleteButton)
+        val deleteButton: Button = view.findViewById(R.id.deleteButton)
         deleteButton.setOnClickListener {
             view.findNavController()
                 .navigate(R.id.action_viewListFragment_to_deleteFragment)
@@ -57,6 +58,37 @@ class ViewListFragment : Fragment() {
                 .navigate(R.id.action_viewListFragment_to_savedFragment)
         }
 
+        val shareButton: Button = view.findViewById(R.id.share_button)
+        shareButton.setOnClickListener {
+            val listText: String = "Example"//getListText() // Get the text from list
+            shareList(listText) // Share list
+        }
+
         return view
+    }
+
+   /* private fun getListText(): String {
+        val stringBuilder = StringBuilder()
+        val itemsList = ItemsViewModel._currentList.value ?: return ""
+        for (item in itemsList) {
+            stringBuilder.append(item.name)
+            stringBuilder.append("\t")
+            stringBuilder.append(item.price)
+            stringBuilder.append("\t")
+            stringBuilder.append(item.quantity)
+            stringBuilder.append("\n")
+        }
+        return stringBuilder.toString()
+    }*/
+
+    // Function to share the list
+    private fun shareList(listText: String) {
+        val sendIntent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, listText)
+            type = "text/plain"
+        }
+        val shareIntent = Intent.createChooser(sendIntent, null)
+        startActivity(shareIntent)
     }
 }
