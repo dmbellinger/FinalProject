@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,6 +27,12 @@ class ViewListFragment : Fragment() {
 
     private lateinit var itemList: MutableList<Item>
     private lateinit var itemAdapter: ItemAdapter
+    private val viewModel: ItemsViewModel by activityViewModels {
+        ItemsViewModelFactory(
+            (activity?.application as ListApplication).database.DAO(),
+            (activity?.application as ListApplication).database.SavedDAO()
+        )
+    }
 
     @SuppressLint("MissingInflatedId")
     override fun onCreateView(
@@ -35,7 +42,7 @@ class ViewListFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_view_list, container, false)
 
 
-        itemAdapter = ItemAdapter()
+        itemAdapter = ItemAdapter(viewModel)
         val recyclerView: RecyclerView = view.findViewById(R.id.itemRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = itemAdapter

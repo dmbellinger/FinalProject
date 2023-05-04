@@ -23,7 +23,8 @@ class AddFragment : Fragment(), View.OnClickListener {
 //    val items = arrayListOf<Item>()
     private val viewModel: ItemsViewModel by activityViewModels {
         ItemsViewModelFactory(
-            (activity?.application as ListApplication).database.DAO()
+            (activity?.application as ListApplication).database.DAO(),
+            (activity?.application as ListApplication).database.SavedDAO()
         )
     }
     lateinit var item:Item
@@ -53,13 +54,15 @@ class AddFragment : Fragment(), View.OnClickListener {
         //val itemName = view?.findViewById<EditText>(R.id.ItemNameInput)?.text.toString()
         val itemName = binding.ItemNameInput.text.toString()
         val itemPrice = binding.ItemPriceInput.text.toString().toDouble()
+        val itemQuantity = binding.QuantityInput.text.toString().toInt()
+        val itemCategory = binding.CategoryInput.text.toString()
         //val itemPrice = view?.findViewById<EditText>(R.id.ItemPriceInput)?.text.toString().toDouble()
 //        Log.d("Tag","$itemPrice")
         //val item = Item(viewModel.currentList,itemName,itemPrice)
 //        items.add(item)
        // ItemsViewModel.ItemArray.addItem(item)
         if (isEntryValid(itemName)) {
-            viewModel.addItem(itemName, itemPrice)
+            viewModel.addItem(itemName, itemPrice, itemCategory, itemQuantity)
         }
     }
 

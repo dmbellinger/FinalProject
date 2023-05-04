@@ -6,9 +6,9 @@ import androidx.room.Query
 
 @Dao
 interface SavedDAO {
-    @Query("SELECT * FROM SavedLists")
+    @Query("SELECT * FROM ListEntity")
     fun getAll(): List<ListEntity>
 
     @Insert
-    fun newList(listEntity: com.hfad.finalproject.ListEntity)
+    fun newList(List: ListEntity)
 }

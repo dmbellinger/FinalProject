@@ -5,19 +5,27 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlin.collections.List
 
 
 class SavedFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private lateinit var recyclerView: RecyclerView
     private lateinit var savedListsAdapter: SavedListsAdapter
+    private val viewModel: ItemsViewModel by activityViewModels {
+        ItemsViewModelFactory(
+            (activity?.application as ListApplication).database.DAO(),
+            (activity?.application as ListApplication).database.SavedDAO()
+        )
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_saved, container, false)
         recyclerView = view.findViewById(R.id.recycler_view_saved_lists)
-        savedListsAdapter = SavedListsAdapter(getDummySavedLists())
+        savedListsAdapter = SavedListsAdapter(viewModel)
         recyclerView.adapter = savedListsAdapter
         recyclerView.layoutManager = GridLayoutManager(context, 2)
         return view

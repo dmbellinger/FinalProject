@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Item::class,ListEntity::class], version = 1)
+@Database(entities = [Item::class,ListEntity::class], version = 2)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun DAO(): DAO
@@ -21,7 +21,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase ::class.java,
                     "list_database"
                 )
-                    .fallbackToDestructiveMigration()
+                    .fallbackToDestructiveMigration().allowMainThreadQueries()
                     .build()
                 INSTANCE = instance
                 return instance

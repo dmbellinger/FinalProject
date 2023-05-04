@@ -1,18 +1,23 @@
 package com.hfad.finalproject
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import kotlin.collections.List
 
-class ItemsViewModel(private val DAO: DAO) : ViewModel() {
-    private val _currentList = 1
+class ItemsViewModel(private val DAO: DAO, private val savedDAO: SavedDAO) : ViewModel() {
+    private var _currentList = 1
     val currentList: Int
         get() = _currentList
 
-    fun addItem(itemName: String, itemPrice: Double){
-        val newItem = getNewItemEntry(itemName, itemPrice)
+    fun addItem(itemName: String, itemPrice: Double, categoryName: String, quantity: Int){
+        val newItem = getNewItemEntry(itemName, itemPrice, quantity, categoryName)
         insertItem(newItem)
+    }
+    fun changeList(newList: Int){
+        _currentList = newList
     }
 
     private fun insertItem(newItem: Item) {
@@ -26,20 +31,44 @@ class ItemsViewModel(private val DAO: DAO) : ViewModel() {
         }
         return true
     }
-    fun getItems() {
+    fun getItems(): List<Item> {
+        lateinit var list: List<Item>
         viewModelScope.launch {
-            DAO.getListItems(_currentList)
+           list = DAO.getListItems(_currentList)
+        }
+        return list
+    }
+
+    fun deleteItem(item: Item){
+        viewModelScope.launch {
+            DAO.deleteItem(item)
+        }
+    }
+    fun deleteByItemId(itemId: Int){
+        viewModelScope.launch {
+            DAO.deleteItemById(itemId)
         }
     }
 
-    private fun getNewItemEntry(itemName: String, itemPrice: Double): Item{
+    private fun getNewItemEntry(itemName: String, itemPrice: Double, quantity: Int, categoryName: String): Item{
         return (
                 Item(
+                    itemId = getItems().size + 1,
                     listId = _currentList,
                     name = itemName,
-                    price = itemPrice
+                    price = itemPrice,
+                    quantity = quantity,
+                    category = categoryName
                     )
                 )
+    }
+
+     fun getSavedLists():List<ListEntity>{
+        lateinit var list: List<ListEntity>
+        viewModelScope.launch {
+            list = savedDAO.getAll()
+        }
+        return list
     }
 
 //    object ItemArray {
@@ -50,11 +79,11 @@ class ItemsViewModel(private val DAO: DAO) : ViewModel() {
 //    }
 
 }
-class ItemsViewModelFactory(private val DAO: DAO) : ViewModelProvider.Factory {
+class ItemsViewModelFactory(private val DAO: DAO, private val SavedDAO: SavedDAO) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ItemsViewModel::class.java)) {
             @Suppress("UNCHECK_CAST")
-            return ItemsViewModel(DAO) as T
+            return ItemsViewModel(DAO, SavedDAO) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

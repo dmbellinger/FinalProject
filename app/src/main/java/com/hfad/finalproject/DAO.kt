@@ -4,10 +4,11 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import kotlin.collections.List
 
 @Dao
 interface DAO {
-    @Query("SELECT * FROM List WHERE ListId = :listId")
+    @Query("SELECT * FROM Item WHERE ListId = :listId")
     fun getListItems(listId: Int): List<Item>
 
     @Insert
@@ -15,4 +16,7 @@ interface DAO {
 
     @Delete
     fun deleteItem(item: Item)
+
+    @Query("DELETE FROM Item WHERE ItemId = :itemId")
+    fun deleteItemById(itemId: Int)
 }

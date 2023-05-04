@@ -1,15 +1,14 @@
 package com.hfad.finalproject
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import kotlin.collections.List
 
-
-class ItemAdapter(viewModel: ItemsViewModel): RecyclerView.Adapter<ItemAdapter.ViewHolder>() {
-
+class DeleteAdapter(viewModel: ItemsViewModel): RecyclerView.Adapter<DeleteAdapter.ViewHolder>() {
+    val viewModel = viewModel
     val items: List<Item> = viewModel.getItems()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         // inflates the card_view_design view
@@ -33,6 +32,8 @@ class ItemAdapter(viewModel: ItemsViewModel): RecyclerView.Adapter<ItemAdapter.V
         holder.priceDisplay.text = ItemsViewModel.price.toString()
         holder.categoryDisplay.text = ItemsViewModel.category.toString()
         holder.quantityDisplay.text = ItemsViewModel.quantity.toString()
+
+
     }
 
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
