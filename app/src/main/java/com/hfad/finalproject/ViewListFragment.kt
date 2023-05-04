@@ -67,16 +67,16 @@ class ViewListFragment : Fragment() {
 
         val shareButton: Button = view.findViewById(R.id.share_button)
         shareButton.setOnClickListener {
-            val listText: String = "Example"//getListText() // Get the text from list
-            shareList(listText) // Share list
+            val listText: String = getListText() // get the text function use
+            shareList(listText) // share function use
         }
 
         return view
     }
 
-   /* private fun getListText(): String {
+    private fun getListText(): String {
         val stringBuilder = StringBuilder()
-        val itemsList = ItemsViewModel._currentList.value ?: return ""
+        val itemsList = viewModel.getItems()//_currentList.value ?: return ""
         for (item in itemsList) {
             stringBuilder.append(item.name)
             stringBuilder.append("\t")
@@ -86,7 +86,7 @@ class ViewListFragment : Fragment() {
             stringBuilder.append("\n")
         }
         return stringBuilder.toString()
-    }*/
+    }
 
     // Function to share the list
     private fun shareList(listText: String) {
