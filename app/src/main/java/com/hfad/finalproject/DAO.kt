@@ -8,7 +8,7 @@ import kotlin.collections.List
 
 @Dao
 interface DAO {
-    @Query("SELECT * FROM Item WHERE ListId = :listId")
+    @Query("SELECT * FROM Item WHERE ListId = :listId ORDER BY category")
     fun getListItems(listId: Int): List<Item>
 
     @Insert

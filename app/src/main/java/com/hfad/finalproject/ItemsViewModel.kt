@@ -71,6 +71,17 @@ class ItemsViewModel(private val DAO: DAO, private val savedDAO: SavedDAO) : Vie
         return list
     }
 
+    fun newList(listName: String){
+        val listToAdd = ListEntity(
+            listId = 0,
+            ListName = listName
+        )
+        viewModelScope.launch{
+            savedDAO.newList(listToAdd)
+        }
+        _currentList = listToAdd.listId
+    }
+
 //    object ItemArray {
 //        val items = arrayListOf<Item>()
 //        fun addItem(item: Item){

@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 class DeleteFragment : Fragment(), OnClickListener {
 
      //var itemList = arrayListOf<Item>()
-     private lateinit var itemAdapter: ItemAdapter
+     private lateinit var deleteAdapter: DeleteAdapter
     private val viewModel: ItemsViewModel by activityViewModels {
         ItemsViewModelFactory(
             (activity?.application as ListApplication).database.DAO(),
@@ -31,10 +31,10 @@ class DeleteFragment : Fragment(), OnClickListener {
         val view = inflater.inflate(R.layout.fragment_delete, container, false)
 
 
-        itemAdapter = ItemAdapter(viewModel)
+        deleteAdapter = DeleteAdapter(viewModel)
         val recyclerView: RecyclerView = view.findViewById(R.id.itemRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(activity)
-        recyclerView.adapter = itemAdapter
+        recyclerView.adapter = deleteAdapter
 
 //        val deleteButton: Button = view.findViewById(R.id.deleteButton)
 //        deleteButton.setOnClickListener {

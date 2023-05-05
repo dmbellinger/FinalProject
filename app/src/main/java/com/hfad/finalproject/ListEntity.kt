@@ -6,6 +6,6 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class ListEntity(
-    @PrimaryKey val listId: Int,
+    @PrimaryKey(autoGenerate = true) val listId: Int,
     @ColumnInfo val ListName: String
 )

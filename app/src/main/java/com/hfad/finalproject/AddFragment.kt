@@ -79,5 +79,6 @@ class AddFragment : Fragment(), View.OnClickListener {
         return viewModel.isEntryValid(binding.ItemNameInput.text.toString())
     }
 
+
 }
 

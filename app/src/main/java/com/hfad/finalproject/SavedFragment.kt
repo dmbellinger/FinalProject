@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,6 +30,12 @@ class SavedFragment : Fragment() {
         savedListsAdapter = SavedListsAdapter(viewModel)
         recyclerView.adapter = savedListsAdapter
         recyclerView.layoutManager = GridLayoutManager(context, 2)
+        val newListName = view.findViewById<EditText>(R.id.new_list_input)
+        val newListButton = view.findViewById<Button>(R.id.button_add_saved_list)
+        newListButton.setOnClickListener{
+            viewModel.newList(newListName.text.toString())
+
+        }
         return view
     }
 

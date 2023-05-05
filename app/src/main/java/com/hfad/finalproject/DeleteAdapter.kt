@@ -32,7 +32,9 @@ class DeleteAdapter(viewModel: ItemsViewModel): RecyclerView.Adapter<DeleteAdapt
         holder.priceDisplay.text = ItemsViewModel.price.toString()
         holder.categoryDisplay.text = ItemsViewModel.category.toString()
         holder.quantityDisplay.text = ItemsViewModel.quantity.toString()
-
+        holder.nameDisplay.setOnClickListener {
+            viewModel.deleteItem(ItemsViewModel)
+        }
 
     }
 

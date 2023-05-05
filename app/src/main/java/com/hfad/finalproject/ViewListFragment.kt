@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -70,6 +71,13 @@ class ViewListFragment : Fragment() {
             val listText: String = getListText() // get the text function use
             shareList(listText) // share function use
         }
+        val priceTotal: TextView = view.findViewById(R.id.PriceTotal)
+        val items = viewModel.getItems()
+        var totalPrice = 0
+        for (item in items){
+            totalPrice = (totalPrice + (item.quantity.toInt() * item.price).toInt())
+        }
+        priceTotal.text = totalPrice.toString()
 
         return view
     }
