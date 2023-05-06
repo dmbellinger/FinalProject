@@ -1,5 +1,8 @@
 package com.hfad.finalproject
-
+//Dylan Bellinger
+//Steven Griffin
+// 5/5/2023
+//Final Project
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
@@ -14,16 +17,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ViewListFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ViewListFragment : Fragment() {
 
     private lateinit var itemList: MutableList<Item>
@@ -48,6 +42,7 @@ class ViewListFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = itemAdapter
 
+        //Buttons for list fragment
         val deleteButton: Button = view.findViewById(R.id.deleteButton)
         deleteButton.setOnClickListener {
             view.findNavController()
@@ -68,8 +63,8 @@ class ViewListFragment : Fragment() {
 
         val shareButton: Button = view.findViewById(R.id.share_button)
         shareButton.setOnClickListener {
-            val listText: String = getListText() // get the text function use
-            shareList(listText) // share function use
+            val listText: String = getListText()
+            shareList(listText)
         }
         val priceTotal: TextView = view.findViewById(R.id.PriceTotal)
         val items = viewModel.getItems()
@@ -82,6 +77,7 @@ class ViewListFragment : Fragment() {
         return view
     }
 
+    //Function for retrieving list text
     private fun getListText(): String {
         val stringBuilder = StringBuilder()
         val itemsList = viewModel.getItems()//_currentList.value ?: return ""

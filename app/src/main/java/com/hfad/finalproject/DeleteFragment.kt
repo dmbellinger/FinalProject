@@ -11,7 +11,10 @@ import android.widget.Button
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
+//Dylan Bellinger
+//Steven Griffin
+// 5/5/2023
+//Final Project
 class DeleteFragment : Fragment(), OnClickListener {
 
      //var itemList = arrayListOf<Item>()
